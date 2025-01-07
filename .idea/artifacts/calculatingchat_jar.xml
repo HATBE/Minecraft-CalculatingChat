@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="calculatingchat:jar">
-    <output-path>$PROJECT_DIR$/../../../../Minecraft/1.19 world 332111/plugins</output-path>
-    <root id="archive" name="calculatingchat.jar">
-      <element id="module-output" name="calculatingchat" />
-    </root>
-  </artifact>
-</component>
