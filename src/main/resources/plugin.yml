@@ -9,3 +9,9 @@ commands:
     aliases:
       - nc
       - nethercoords
+  overworldcoordinates:
+    description: Get the overworld coordinates of a given nether coordinate
+    usage: /overworldcoordinates <x> <z>
+    aliases:
+      - oc
+      - overworldcoords

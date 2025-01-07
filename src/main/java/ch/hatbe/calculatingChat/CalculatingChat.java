@@ -1,6 +1,7 @@
 package ch.hatbe.calculatingChat;
 
 import ch.hatbe.calculatingChat.commands.NetherCoordinatesCommand;
+import ch.hatbe.calculatingChat.commands.OverworldCoordinatesCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ public final class CalculatingChat extends JavaPlugin {
 
     private void registerCommands() {
         this.getCommand("nethercoordinates").setExecutor(new NetherCoordinatesCommand());
+        this.getCommand("overworldcoordinates").setExecutor(new OverworldCoordinatesCommand());
     }
 
     private void setInstance(CalculatingChat instance) {
