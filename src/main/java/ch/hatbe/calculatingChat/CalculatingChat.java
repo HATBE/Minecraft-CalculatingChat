@@ -1,7 +1,7 @@
 package ch.hatbe.calculatingChat;
 
-import ch.hatbe.calculatingChat.commands.NetherCoordinatesCommand;
-import ch.hatbe.calculatingChat.commands.OverworldCoordinatesCommand;
+import ch.hatbe.calculatingChat.commands.coordinateCommands.NetherCoordinatesCommand;
+import ch.hatbe.calculatingChat.commands.coordinateCommands.OverworldCoordinatesCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
