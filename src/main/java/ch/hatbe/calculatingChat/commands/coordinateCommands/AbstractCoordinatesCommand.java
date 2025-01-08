@@ -18,14 +18,15 @@ public abstract class AbstractCoordinatesCommand implements CommandExecutor {
 
         switch(args.length) {
             case 0:
-                if (sender instanceof Player player) {
-                    x = player.getLocation().getBlockX();
-                    y = player.getLocation().getBlockY();
-                    z = player.getLocation().getBlockZ();
-                } else {
+                if (! (sender instanceof Player player)) {
                     sender.sendMessage(this.sendUsageMessage(label));
                     return false;
                 }
+
+                x = player.getLocation().getBlockX();
+                y = player.getLocation().getBlockY();
+                z = player.getLocation().getBlockZ();
+
                 break;
             case 2:
                 try {
