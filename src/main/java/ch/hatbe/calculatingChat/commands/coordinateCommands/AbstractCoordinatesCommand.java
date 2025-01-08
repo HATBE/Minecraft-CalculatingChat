@@ -10,33 +10,44 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-// TODO: if just enter command with no args, it should use players location && add tab complete for player location
+// TODO: add tab complete for player location
 // TODO: handle y coordinate
 
 public abstract class AbstractCoordinatesCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        if (args.length != 2) {
-            sender.sendMessage(this.sendUsageMessage(label));
-            return false;
-        }
-
         int x, z;
 
-        try {
-            x = Integer.parseInt(args[0]);
-            z = Integer.parseInt(args[1]);
-        } catch (NumberFormatException e) {
-            sender.sendMessage("Error: Coordinates must be valid integers.");
-            return false;
+        switch(args.length) {
+            case 0:
+                if (sender instanceof Player player) {
+                    x = player.getLocation().getBlockX();
+                    z = player.getLocation().getBlockZ();
+                } else {
+                    sender.sendMessage(this.sendUsageMessage(label));
+                    return false;
+                }
+                break;
+            case 2:
+                try {
+                    x = Integer.parseInt(args[0]);
+                    z = Integer.parseInt(args[1]);
+                } catch (NumberFormatException e) {
+                    sender.sendMessage("Error: Coordinates must be valid integers.");
+                    return false;
+                }
+                break;
+            default:
+                sender.sendMessage(this.sendUsageMessage(label));
+                return false;
         }
 
-        Coordinates2D coordinates2D = calculateCoordinates(x, z);
+        Coordinates2D coordinates = this.calculateCoordinates(x, z);
         String dimensionName = this.getDimensionName();
 
         // TODO: create object && class to handle this shit
-        String clipboardText = String.format("%d %d", coordinates2D.x(), coordinates2D.z());
-        String displayText = String.format("%s coordinates: x: %d, z: %d", dimensionName, coordinates2D.x(), coordinates2D.z());
+        String clipboardText = String.format("%d %d", coordinates.x(), coordinates.z());
+        String displayText = String.format("%s coordinates: x: %d, z: %d", dimensionName, coordinates.x(), coordinates.z());
 
         if (sender instanceof Player player) {
             Component message = Component.text(displayText)
@@ -50,8 +61,6 @@ public abstract class AbstractCoordinatesCommand implements CommandExecutor {
 
         return true;
     }
-
-
 
     private String sendUsageMessage(String cmd) {
         return String.format("usage: /%s <x> <z>", cmd);
