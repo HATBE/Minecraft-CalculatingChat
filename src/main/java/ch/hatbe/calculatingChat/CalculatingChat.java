@@ -1,8 +1,8 @@
 package ch.hatbe.calculatingChat;
 
+import ch.hatbe.calculatingChat.commands.coordinateCommands.CoordinatesCommandTabCompleter;
 import ch.hatbe.calculatingChat.commands.coordinateCommands.NetherCoordinatesCommand;
 import ch.hatbe.calculatingChat.commands.coordinateCommands.OverworldCoordinatesCommand;
-import ch.hatbe.calculatingChat.events.OnPlayerChat;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -20,7 +20,6 @@ public final class CalculatingChat extends JavaPlugin {
         this.getLoggerInstance().info("Plugin enabled");
 
         this.registerCommands();
-        this.registerEvents();
     }
 
     @Override
@@ -30,12 +29,13 @@ public final class CalculatingChat extends JavaPlugin {
 
     private void registerCommands() {
         this.getCommand("nethercoordinates").setExecutor(new NetherCoordinatesCommand());
+        this.getCommand("nethercoordinates").setTabCompleter(new CoordinatesCommandTabCompleter());
+
         this.getCommand("overworldcoordinates").setExecutor(new OverworldCoordinatesCommand());
+        this.getCommand("overworldcoordinates").setTabCompleter(new CoordinatesCommandTabCompleter());
+
     }
 
-    private void registerEvents() {
-        this.getServer().getPluginManager().registerEvents(new OnPlayerChat(), this);
-    }
 
     private void setInstance(CalculatingChat instance) {
         CalculatingChat.instance = instance;
